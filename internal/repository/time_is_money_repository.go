@@ -7,7 +7,28 @@ import (
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
+	"gorm.io/gorm"
 )
+
+type TimeIsMoneyRepository interface {
+	Save(ctx context.Context, tim TimeIsMoney) error
+	FindByID(ctx context.Context, id int) (*TimeIsMoney, error)
+}
+
+func (repo *timeIsMoneyGormRepo) Save(ctx context.Context, tim TimeIsMoney) error {
+	return repo.db.WithContext(ctx).Save(&tim).Error
+}
+
+func (repo *timeIsMoneyGormRepo) FindByID(ctx context.Context, id int) (*TimeIsMoney, error) {
+	var tim TimeIsMoney
+	if err := repo.db.WithContext(ctx).First(&tim, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("not found")
+		}
+		return nil, err
+	}
+	return &tim, nil
+}
 
 // SQLite３を使ったCRUD操作の基本確認
 var Dbconnection *sql.DB
