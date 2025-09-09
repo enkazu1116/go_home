@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Userエンティティ
 type User struct {
 	ID        string         `gorm:"primaryKey"`
 	AuthID    string         `gorm:"unique;not null"`

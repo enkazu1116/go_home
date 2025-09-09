@@ -1,4 +1,4 @@
-module immediately_return_home
+module go_home-main
 
 go 1.24.5
 

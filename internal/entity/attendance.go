@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// 勤怠エンティティ
 type Attendance struct {
 	ID        string    `gorm:"primaryKey"`
 	UserID    string    `gorm:"primaryKey"`
