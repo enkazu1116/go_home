@@ -1,31 +1,151 @@
-openapi: 3.1.0
+openapi: "3.0.3"
 info:
-  title; Go Home API
-  version: 1.0.0
+  title: User API
+  version: "1.0.0"
 servers:
-  - url: http://0.0.0.0:8080/api/v1
-  - url: http://localhost:8080/api/v1
-  - url: http://127.0.0.1:8080/api/v1
+  - url: http://localhost:8080
 paths:
   /users:
-    get:
-      summary: Get first user
-      operationId: getUser
+    post:
+      summary: Create user
+      operationId: createUser
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              type: object
+              $ref: '#/components/schemas/UserCreate'
       responses:
-        '200':
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    get:
+      summary: List users
+      operationId: listUsers
+      responses:
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-      
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: Not Found
+    put:
+      summary: Update user by ID
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: Not Found
+    delete:
+      summary: Delete user by ID
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        authId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - authId
+        - name
+        - email
+        - role
+    UserCreate:
+      type: object
+      properties:
+        authId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+      required:
+        - authId
+        - name
+        - email
+        - role
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+      required:
+        - name
+        - email
+        - role
