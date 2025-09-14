@@ -16,6 +16,7 @@ type UserHandler struct {
 }
 
 // NewUserHandlerはUserHandlerを生成
+// UserUsecaseを引数に受け取り、UserHandlerのUsecaseフィールドにセットする
 func NewUserHandler(u domain.UserUsecase) *UserHandler {
 	return &UserHandler{Usecase: u}
 }
@@ -69,6 +70,9 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	var req entity.User
+	// NewDecoderでリクエストボディをデコードする
+	// デコードとは、JSON形式のデータをGoの構造体に変換すること
+	// エンコードとは、Goの構造体をJSON形式のデータに変換すること
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
