@@ -2,8 +2,9 @@ package domain
 
 import (
 	"context"
-	"go_home-main/internal/entity"
-	"go_home-main/internal/repository"
+
+	"github.com/enkazu1116/go_home/internal/entity"
+	"github.com/enkazu1116/go_home/internal/repository"
 )
 
 // Userを使用してお試し

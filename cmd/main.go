@@ -8,10 +8,10 @@ import (
 	"os/signal"
 	"time"
 
-	"go_home-main/internal/domain"
-	"go_home-main/internal/entity"
-	"go_home-main/internal/handler"
-	"go_home-main/internal/repository"
+	"github.com/enkazu1116/go_home/internal/domain"
+	"github.com/enkazu1116/go_home/internal/entity"
+	"github.com/enkazu1116/go_home/internal/handler"
+	"github.com/enkazu1116/go_home/internal/repository"
 
 	"github.com/go-chi/chi/v5"
 	"gorm.io/driver/sqlite"

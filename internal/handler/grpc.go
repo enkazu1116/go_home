@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"go_home-main/internal/domain"
-	"go_home-main/internal/entity"
-	pb "go_home-main/internal/pb"
+	"github.com/enkazu1116/go_home/internal/domain"
+	"github.com/enkazu1116/go_home/internal/entity"
+	pb "github.com/enkazu1116/go_home/internal/pb"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"

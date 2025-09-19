@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"go_home-main/internal/domain"
-	"go_home-main/internal/entity"
+	"github.com/enkazu1116/go_home/internal/domain"
+	"github.com/enkazu1116/go_home/internal/entity"
 
 	"github.com/go-chi/chi/v5"
 )

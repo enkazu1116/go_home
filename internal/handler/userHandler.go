@@ -1,6 +1,6 @@
 package handler
 
-import "go_home-main/internal/domain"
+import "go_home/internal/domain"
 
 // UserHandlerの構造体を定義
 // Usercaseを構造体に埋め込み、UsercaseのメソッドをUserHandlerから呼び出せるようにするs
@@ -12,7 +12,7 @@ type UserHandler struct {
 func NewUserHandler(userhandle domain.UserUsecase) *UserHandler {
 	
 	// 生成したUserHandlerのポインタを返す（）内は構造体のフィールド名： フィールドの値
-	return &UserHandler(UserUsecase: userhandle)
+	return &UserHandler{UserUsecase: userhandle}
 }
 
 // UserHandler用のルーティング設定

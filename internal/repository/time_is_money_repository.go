@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"go_home-main/internal/entity"
+	"github.com/enkazu1116/go_home/internal/entity"
 
 	"gorm.io/gorm"
 )
