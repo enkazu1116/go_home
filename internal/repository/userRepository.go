@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/enkazu1116/go_home-main/internal/entity"
+	"github.com/enkazu1116/go_home/internal/entity"
 )
 
 type UserRepository interface {
