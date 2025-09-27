@@ -8,10 +8,8 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/enkazu1116/go_home/internal/domain"
 	"github.com/enkazu1116/go_home/internal/entity"
-	"github.com/enkazu1116/go_home/internal/handler"
-	"github.com/enkazu1116/go_home/internal/repository"
+	"github.com/enkazu1116/go_home/internal/wire"
 
 	"github.com/go-chi/chi/v5"
 	"gorm.io/driver/sqlite"
@@ -30,14 +28,15 @@ func main() {
 		log.Fatalf("auto migrate failed: %v", err)
 	}
 
-	// リポジトリ・ユースケース・ハンドラ初期化
-	repo := repository.NewTimeIsMoneyRepository(db) // concrete impl that satisfies repository.UserRepository
-	usecase := domain.NewUserUsecase(repo)
-	userHandler := handler.NewUserHandler(usecase)
+	// Wireを使用した依存性注入でアプリケーションを初期化
+	app, err := wire.InitializeApp(db)
+	if err != nil {
+		log.Fatalf("failed to initialize app: %v", err)
+	}
 
 	// HTTPサーバ設定
 	r := chi.NewRouter()
-	userHandler.RegisterRoutes(r)
+	app.UserHandler.RegisterRoutes(r)
 
 	srv := &http.Server{
 		Addr:    ":8080",

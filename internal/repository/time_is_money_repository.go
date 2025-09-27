@@ -14,7 +14,7 @@ import (
 // 理解のため、何が引数で、戻り値は何かを一目でわかるようにしている。
 
 // リポジトリの構造体
-type timeIsMoneyGormRepo struct {
+type TimeIsMoneyGormRepo struct {
 	// Gormを用いたDB接続
 	db *gorm.DB
 }
@@ -22,16 +22,16 @@ type timeIsMoneyGormRepo struct {
 // コンストラクタ
 // DB接続を受け取る
 // 引数： db(*gorm.DB型)
-// 戻り値: *timeIsMoneyGormRepo型のポインタ
-func NewTimeIsMoneyRepository(db *gorm.DB) *timeIsMoneyGormRepo {
-	return &timeIsMoneyGormRepo{db: db}
+// 戻り値: *TimeIsMoneyGormRepo型のポインタ
+func NewTimeIsMoneyRepository(db *gorm.DB) *TimeIsMoneyGormRepo {
+	return &TimeIsMoneyGormRepo{db: db}
 }
 
 // Gormを用いたCRUD操作のメソッドを定義
 // 新規登録 INSERT
 // 引数: user(User型)
 // 戻り値: error型
-func (repo *timeIsMoneyGormRepo) CreateUser(context context.Context, user entity.User) error {
+func (repo *TimeIsMoneyGormRepo) CreateUser(context context.Context, user entity.User) error {
 	// エラーハンドリングは呼び出し元で行う
 	// Createは新規登録のため、アドレスを渡す。
 	return repo.db.WithContext(context).Create(&user).Error
@@ -40,7 +40,7 @@ func (repo *timeIsMoneyGormRepo) CreateUser(context context.Context, user entity
 // 更新処理 UPDATE
 // 引数: user(User型)
 // 戻り値: error型
-func (repo *timeIsMoneyGormRepo) UpdateUser(context context.Context, user entity.User) error {
+func (repo *TimeIsMoneyGormRepo) UpdateUser(context context.Context, user entity.User) error {
 	// エラーハンドリングは呼び出し元で行う
 	// Saveは主キーを元にレコードを更新するため、アドレスを渡す
 	return repo.db.WithContext(context).Save(&user).Error
@@ -49,7 +49,7 @@ func (repo *timeIsMoneyGormRepo) UpdateUser(context context.Context, user entity
 // 取得処理 SELECT (1件)
 // 引数: context(context.Context型), user(User型)
 // 戻り値: (*User, error) ※ここでerrorだけを返すと、userを返すことができないため、*Userも返す
-func (repo *timeIsMoneyGormRepo) FindFirst(context context.Context, id string) (*entity.User, error) {
+func (repo *TimeIsMoneyGormRepo) FindFirst(context context.Context, id string) (*entity.User, error) {
 
 	// 検索結果を格納する
 	var user entity.User
@@ -78,7 +78,7 @@ func (repo *timeIsMoneyGormRepo) FindFirst(context context.Context, id string) (
 // 取得処理 SELECT (複数)
 // 引数: context(context.Context型), user(User型)
 // 戻り値: (*User, error)
-func (repo *timeIsMoneyGormRepo) FindAllUser(context context.Context) ([]entity.User, error) {
+func (repo *TimeIsMoneyGormRepo) FindAllUser(context context.Context) ([]entity.User, error) {
 
 	// 検索結果を格納するスライス
 	var users []entity.User
@@ -97,7 +97,7 @@ func (repo *timeIsMoneyGormRepo) FindAllUser(context context.Context) ([]entity.
 // 削除処理 DELETE
 // 引数: context(context.Context型), user(User型)
 // 戻り値: (error)
-func (repo *timeIsMoneyGormRepo) DeleteUser(context context.Context, user entity.User) error {
+func (repo *TimeIsMoneyGormRepo) DeleteUser(context context.Context, user entity.User) error {
 	// Deleteはレコードを削除する
 	return repo.db.WithContext(context).Delete(&user).Error
 }
